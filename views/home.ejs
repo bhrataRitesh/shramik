@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Shramik</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <!-- <link rel="icon"
+      href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680942150/Menu/icon/icons8-bao-bun-48_epvugt.png"
+      type="image/jpeg"> -->
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/main.css" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-shramiks-center">
+      <div class="container d-flex align-shramiks-center justify-content-between">
+
+        <a href="/" class="logo d-flex align-shramiks-center me-auto me-lg-0">
+
+          <!-- <img src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1678878592/Menu/icon/logo_e6ntbe.png" alt=""> -->
+          <h1>Shramik<span>.</span></h1>
+        </a>
+
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a href="/home#hero">Home</a></li>
+            <li><a href="/home#about">About</a></li>
+            <li><a href="/shramiks">Shramiks</a></li>
+
+            <li class="dropdown">
+              <a <%if(!currentUser){%>href="/login" <% }else{ %>href="#"
+                <% } %>><span><%if(currentUser){%><%=currentUser.username.toUpperCase()%> <% }else{ %> Login
+                  <% } %></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul>
+                <%if(!currentUser){%>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                <% } %>
+                <%if(currentUser){%>
+                <li><a href="/logout">Logout</a></li>
+                <% } %>
+              </ul>
+            </li>
+          </ul>
+        </nav><!-- .navbar -->
+
+        <!-- <a class="btn-book-a-table" href="/shramiks">Book a Table</a> -->
+        <!-- <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i> -->
+
+      </div>
+    </header><!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-shramiks-center section-bg">
+      <div class="container">
+        <div class="row justify-content-between gy-5">
+          <div
+            class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-shramiks-center align-shramiks-lg-start text-center text-lg-start">
+            <h3 data-aos="fade-up">Shramik:<br>Bridging skills and opportunities, one profile at a time!</h3>
+            <p data-aos="fade-up" data-aos-delay="100">
+              A platform where skills meet opportunity! Connecting daily wage laborers to local employers with
+              ease and
+              efficiency.</p>
+            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+              <a href="/shramiks" class="btn-book-a-table">Book service</a>
+            </div>
+          </div>
+          <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+            <img src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1732898173/Shramik/n0hp9vrmyqcmjhsr1bmd.png"
+              class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+          </div>
+        </div>
+      </div>
+    </section><!-- End Hero Section -->
+
+    <main id="main">
+
+      <!-- ======= Stats Counter Section ======= -->
+      <section id="stats-counter" class="stats-counter">
+        <div class="container" data-aos="zoom-out">
+
+          <div class="row gy-4">
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-shramik text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Clients</p>
+              </div>
+            </div><!-- End Stats Shramik -->
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-shramik text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Projects</p>
+              </div>
+            </div><!-- End Stats Shramik -->
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-shramik text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Hours Of Support</p>
+              </div>
+            </div><!-- End Stats Shramik -->
+
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-shramik text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                  class="purecounter"></span>
+                <p>Workers</p>
+              </div>
+            </div><!-- End Stats Shramik -->
+
+          </div>
+
+        </div>
+      </section>
+      <!-- End Stats Counter Section -->
+
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+
+          <div class="section-header">
+            <h2>About Us</h2>
+            <p>Learn More <span>About Us</span></p>
+          </div>
+
+          <div class="row gy-4">
+            <div class="col-md-6 position-relative about-img"
+              style="background-image: url(https://res.cloudinary.com/dyoynbt7i/image/upload/v1732907237/Shramik/vl9ww4ngaso2zhsiau9w.avif);"
+              data-aos="fade-up" data-aos-delay="150">
+            </div>
+            <div class="col-lg-5 d-flex align-shramiks-end" data-aos="fade-up" data-aos-delay="300">
+              <div class="content ps-0 ps-lg-5">
+                <p class="fst-italic">
+                  About Us
+
+                  Welcome to Shramik, your trusted platform for connecting skilled daily wage laborers with employers in
+                  their local area.
+
+                  At Shramik, we aim to empower hardworking individuals by providing a platform where they can showcase
+                  their skills,
+                  build profiles, and find meaningful opportunities effortlessly. Whether you’re looking for a
+                  carpenter, plumber, mason,
+                  or any other skilled worker, Shramik simplifies the hiring process, ensuring you find the right talent
+                  in your vicinity.
+
+                  Our platform goes beyond job search—we’re building a community that values skills and fosters growth.
+                  With features like
+                  SMS notifications for hired workers, we ensure seamless communication and convenience for all users.
+
+                  Join us in bridging the gap between talent and opportunity. Together, we can make a difference in the
+                  lives of countless
+                  laborers and create a future of equitable employment.
+                </p>
+
+                <!-- <div class="position-relative mt-4">
+                  <img src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296441/Menu/img/about-2_kfu5wu.jpg"
+                    class="img-fluid" alt="">
+                  <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section><!-- End About Section -->
+
+
+
+
+
+
+
+
+      <!-- ======= Chefs Section ======= 
+      <section id="chefs" class="chefs section-bg">
+        <div class="container" data-aos="fade-up">
+
+          <div class="section-header">
+            <h2>Chefs</h2>
+            <p>Our <span>Proffesional</span> Chefs</p>
+          </div>
+
+          <div class="row gy-4">
+
+            <div class="col-lg-4 col-md-6 d-flex align-shramiks-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="chef-member">
+                <div class="member-img">
+                  <img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296398/Menu/img/chefs/chefs-1_zkchy6.jpg"
+                    class="img-fluid" alt="">
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+                <div class="member-info">
+                  <h4>Walter White</h4>
+                  <span>Master Chef</span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex align-shramiks-stretch" data-aos="fade-up" data-aos-delay="200">
+              <div class="chef-member">
+                <div class="member-img">
+                  <img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296397/Menu/img/chefs/chefs-2_uklpdw.jpg"
+                    class="img-fluid" alt="">
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+                <div class="member-info">
+                  <h4>Sarah Jhonson</h4>
+                  <span>Patissier</span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex align-shramiks-stretch" data-aos="fade-up" data-aos-delay="300">
+              <div class="chef-member">
+                <div class="member-img">
+                  <img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296398/Menu/img/chefs/chefs-3_p6ohhi.jpg"
+                    class="img-fluid" alt="">
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+                <div class="member-info">
+                  <h4>William Anderson</h4>
+                  <span>Cook</span>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>End Chefs Section -->
+
+
+
+      <!-- ======= Gallery Section ======= 
+      <section id="gallery" class="gallery section-bg">
+        <div class="container" data-aos="fade-up">
+
+          <div class="section-header">
+            <h2>gallery</h2>
+            <p>Check <span>Our Gallery</span></p>
+          </div>
+
+          <div class="gallery-slider swiper">
+            <div class="swiper-wrapper align-shramiks-center">
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296413/Menu/img/gallery/gallery-1_cbyvfo.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296413/Menu/img/gallery/gallery-1_cbyvfo.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296413/Menu/img/gallery/gallery-2_fdr001.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296413/Menu/img/gallery/gallery-2_fdr001.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296414/Menu/img/gallery/gallery-3_oqgbtr.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296414/Menu/img/gallery/gallery-3_oqgbtr.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296415/Menu/img/gallery/gallery-4_mky6bf.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296415/Menu/img/gallery/gallery-4_mky6bf.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296413/Menu/img/gallery/gallery-5_qks8yn.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296413/Menu/img/gallery/gallery-5_qks8yn.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296414/Menu/img/gallery/gallery-6_leozdi.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296414/Menu/img/gallery/gallery-6_leozdi.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296414/Menu/img/gallery/gallery-7_mjpxl6.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296414/Menu/img/gallery/gallery-7_mjpxl6.jpg"
+                    class="img-fluid" alt=""></a></div>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery"
+                  href="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296415/Menu/img/gallery/gallery-8_sfuhh4.jpg"><img
+                    src="https://res.cloudinary.com/dyoynbt7i/image/upload/v1680296415/Menu/img/gallery/gallery-8_sfuhh4.jpg"
+                    class="img-fluid" alt=""></a></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+
+        </div>
+      </section>End Gallery Section -->
+
+
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+
+      <div class="container">
+        <div class="row gy-3">
+          <div class="col-lg-3 col-md-6 d-flex">
+            <i class="bi bi-geo-alt icon"></i>
+            <div>
+              <h4>Address</h4>
+              <p>
+                GLBITM<br>
+                Greater Noida<br>
+              </p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links d-flex">
+            <i class="bi bi-telephone icon"></i>
+            <div>
+              <h4>Contact Us</h4>
+              <p>
+                <strong>Phone:</strong> +91 234341566<br>
+                <strong>Email:</strong> info@shramik.com<br>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links d-flex">
+            <i class="bi bi-clock icon"></i>
+            <div>
+              <h4>Opening Hours</h4>
+              <p>
+                <strong>Mon-Sat: 6AM</strong> - 5PM<br>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Follow Us</h4>
+            <div class="social-links d-flex">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Shramik</span></strong>. All Rights Reserved
+        </div>
+      </div>
+
+    </footer><!-- End Footer -->
+    <!-- End Footer -->
+
+    <a href="#" class="scroll-top d-flex align-shramiks-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/aos/aos.js"></script>
+    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/assets/js/main.js"></script>
+
+  </body>
+
+</html>

@@ -1,0 +1,48 @@
+<% layout('/layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">Edit Shramik</h1>
+  <div class="col-md-6 offset-md-3">
+    <form method="POST" action="/shramiks/<%=shramik._id %>?_method=PUT" novalidate class="validated-form"
+      enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="title">Name</label>
+        <input class="form-control" type="text" id="title" name="shramik[title]" value="<%=shramik.title %> "
+          required />
+        <div class="valid-feedback">Looks good</div>
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Amount</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">₹</span>
+          <input type="text" class="form-control" value="<%=shramik.price %>" aria-label="price" id="price"
+            aria-describedby="price-label" name="shramik[price]" required />
+          <div class="valid-feedback">Looks good</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="shramik[description]" required>
+<%=shramik.description %></textarea>
+        <div class="valid-feedback">Looks good</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Add More Images</label>
+        <input class="form-control" type="file" name="image" id="formFileMultiple" />
+      </div>
+      <div class="mb-3">
+        <% shramik.image.forEach(function(img,i){ %>
+        <img src="<%=img.thumbnail%>" alt="" class="img-thumbnail" />
+        <div class="form-check-inline">
+          <input type="checkbox" id="image-<%=i %>" name="deleteImages[]" value="<%=img.filename %>" />
+          <label for="image-<%=i %>">Delete?</label>
+        </div>
+        <% }) %>
+      </div>
+      <div class="mb-3"><button class="btn btn-success">Edit</button></div>
+      <a href="/shramiks/<%=shramik._id %> ">Back to Shramik</a>
+    </form>
+  </div>
+</div>
