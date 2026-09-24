@@ -1,40 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendOtp } from "@/lib/twilio";
 
 export async function POST(request: NextRequest) {
   try {
-    const { phone, role = "labourer" } = await request.json();
+    const body = await request.json();
+    const phone = body.phone?.toString().trim();
 
-    if (!phone || phone.length < 10) {
+    if (!phone || phone.replace(/\D/g, "").length < 10) {
       return NextResponse.json(
-        { success: false, error: "Valid 10-digit mobile number required" },
+        { success: false, error: "Valid 10-digit mobile number is required" },
         { status: 400 }
       );
     }
 
-    // Generate 6-digit secure OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-    // In a live environment with TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN:
-    // await twilioClient.messages.create({
-    //   body: `[Shramik 2.0] Your verification code is ${otp}. Valid for 5 minutes. Never share this code with anyone.`,
-    //   from: process.env.TWILIO_PHONE_NUMBER,
-    //   to: `+91${phone.replace(/[^0-9]/g, "").slice(-10)}`
-    // });
-
-    console.log(`[Twilio SMS Service] To: +91${phone} | OTP: ${otp} | Role: ${role}`);
+    const result = await sendOtp(phone);
 
     return NextResponse.json({
       success: true,
-      message: `OTP sent successfully to +91 ${phone.slice(-10)}`,
-      // Returning OTP in development/demo response for seamless instant testing
-      demoOtp: otp,
-      provider: "Twilio Programmable SMS / WhatsApp Gateway",
+      message: result.message,
+      isSandbox: result.isSandbox,
+      devOtp: result.devOtp, // available for instant local development/testing
+      provider: result.isSandbox ? "Sandbox SMS Gateway" : "Twilio Verify Service",
     });
-  } catch (error) {
-    console.error("OTP send error:", error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to send OTP";
+    console.error("OTP send error:", message);
     return NextResponse.json(
-      { success: false, error: "Failed to send OTP via SMS gateway" },
-      { status: 500 }
+      { success: false, error: message },
+      { status: 429 }
     );
   }
 }
