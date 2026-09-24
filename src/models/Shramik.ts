@@ -34,6 +34,7 @@ export interface IShramik extends Document {
   totalReviews: number;
   completedJobs: number;
   crewSize: number;
+  standbyExpiresAt?: Date;
   author?: mongoose.Types.ObjectId;
   reviews: mongoose.Types.ObjectId[];
   createdAt: Date;
@@ -90,6 +91,7 @@ const ShramikSchema = new Schema<IShramik>(
     totalReviews: { type: Number, default: 0 },
     completedJobs: { type: Number, default: 12 },
     crewSize: { type: Number, default: 1 },
+    standbyExpiresAt: { type: Date },
     author: { type: Schema.Types.ObjectId, ref: "User" },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   },
@@ -102,6 +104,9 @@ const ShramikSchema = new Schema<IShramik>(
 
 // 2dsphere index for high-speed hyperlocal geo-dispatch queries
 ShramikSchema.index({ location: "2dsphere" });
+ShramikSchema.index({ tradeCategory: 1, isAvailableToday: 1, price: 1 });
+ShramikSchema.index({ isAvailableToday: 1, tier: 1 });
+ShramikSchema.index({ city: 1, tradeCategory: 1 });
 
 export const Shramik: Model<IShramik> =
   mongoose.models.Shramik || mongoose.model<IShramik>("Shramik", ShramikSchema);

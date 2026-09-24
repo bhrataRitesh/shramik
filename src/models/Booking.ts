@@ -21,6 +21,9 @@ export interface IBooking extends Document {
   paymentMethod: "upi" | "cash_escrow" | "card";
   paymentTxnId?: string;
   payoutTxnId?: string;
+  razorpayOrderId?: string;
+  checkInOtpHash?: string;
+  siteCoordinates?: [number, number];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -57,11 +60,20 @@ const BookingSchema = new Schema<IBooking>(
       enum: ["upi", "cash_escrow", "card"],
       default: "upi",
     },
-    paymentTxnId: { type: String },
-    payoutTxnId: { type: String },
+    paymentTxnId: { type: String, index: true },
+    payoutTxnId: { type: String, index: true },
+    razorpayOrderId: { type: String, index: true },
+    checkInOtpHash: { type: String },
+    siteCoordinates: {
+      type: [Number], // [lng, lat]
+    },
   },
   { timestamps: true }
 );
+
+BookingSchema.index({ employerPhone: 1, createdAt: -1 });
+BookingSchema.index({ shramikId: 1, status: 1 });
+BookingSchema.index({ escrowStatus: 1 });
 
 export const Booking: Model<IBooking> =
   mongoose.models.Booking || mongoose.model<IBooking>("Booking", BookingSchema);
