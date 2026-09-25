@@ -46,7 +46,13 @@ export function formatE164(phone: string): string {
 /**
  * Send 6-digit OTP to mobile number
  */
-export async function sendOtp(phone: string): Promise<{ success: boolean; message: string; isSandbox: boolean; devOtp?: string }> {
+export async function sendOtp(phone: string): Promise<{
+  success: boolean;
+  message: string;
+  isSandbox: boolean;
+  devOtp?: string;
+  twilioError?: string;
+}> {
   const formattedPhone = formatE164(phone);
 
   if (!checkOtpRateLimit(formattedPhone)) {
@@ -73,7 +79,24 @@ export async function sendOtp(phone: string): Promise<{ success: boolean; messag
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.message || "Failed to dispatch SMS via Twilio");
+        console.warn(`Twilio Verify API rejected [${data.code}]:`, data.message);
+        const isTrialRestriction = data.code === 21608;
+        const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        sandboxOtpStore.set(formattedPhone, {
+          code: generatedOtp,
+          expiresAt: Date.now() + 10 * 60 * 1000,
+          attempts: 0,
+        });
+
+        return {
+          success: true,
+          message: isTrialRestriction
+            ? `Twilio Trial Account: ${formattedPhone} is not a verified tester in Twilio console. Fallback dev OTP provided.`
+            : `Twilio Notice: ${data.message}. Fallback dev OTP provided.`,
+          isSandbox: true,
+          devOtp: generatedOtp,
+          twilioError: data.message,
+        };
       }
 
       return {
@@ -83,7 +106,7 @@ export async function sendOtp(phone: string): Promise<{ success: boolean; messag
       };
     } catch (err: unknown) {
       const errMsg = err instanceof Error ? err.message : String(err);
-      console.warn("Twilio Verify API call failed, falling back to sandbox:", errMsg);
+      console.warn("Twilio Verify API call exception, falling back to sandbox:", errMsg);
     }
   }
 

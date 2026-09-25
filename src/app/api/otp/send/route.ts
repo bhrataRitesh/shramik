@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
       message: result.message,
       isSandbox: result.isSandbox,
       devOtp: result.devOtp, // available for instant local development/testing
-      provider: result.isSandbox ? "Sandbox SMS Gateway" : "Twilio Verify Service",
+      twilioDetail: (result as { twilioError?: string }).twilioError,
+      provider: result.isSandbox ? "Twilio Sandbox / Fallback" : "Twilio Verify Service (Live SMS)",
     });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to send OTP";
