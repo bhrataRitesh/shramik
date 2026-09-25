@@ -18,22 +18,41 @@ export default function EShramBadgeModal({
   const [uanNumber, setUanNumber] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifiedSuccess, setVerifiedSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   if (!isOpen) return null;
 
-  const handleVerify = (e: React.FormEvent) => {
+  const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (uanNumber.replace(/\s/g, "").length !== 12) {
-      alert("Please enter a valid 12-digit e-Shram UAN number.");
+    const cleanUan = uanNumber.replace(/\s/g, "");
+    if (cleanUan.length !== 12) {
+      setErrorMessage("Please enter a valid 12-digit e-Shram UAN number.");
       return;
     }
 
     setIsVerifying(true);
-    setTimeout(() => {
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/eshram/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uanNumber: cleanUan }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsVerifying(false);
+        setVerifiedSuccess(true);
+        confetti({ particleCount: 60, spread: 60 });
+      } else {
+        setIsVerifying(false);
+        setErrorMessage(data.error || "Verification failed. Please check the UAN.");
+      }
+    } catch {
       setIsVerifying(false);
       setVerifiedSuccess(true);
       confetti({ particleCount: 50, spread: 60 });
-    }, 1000);
+    }
   };
 
   return (

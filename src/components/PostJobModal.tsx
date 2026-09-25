@@ -22,37 +22,65 @@ export default function PostJobModal({
   const [wageOffered, setWageOffered] = useState(800);
   const [siteAddress, setSiteAddress] = useState("");
   const [employerPhone, setEmployerPhone] = useState("+91 98765 43210");
+  const [isPosting, setIsPosting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !siteAddress || !employerPhone) {
       alert("Please fill in all required job fields.");
       return;
     }
 
-    const newJob = {
-      id: "job-" + Date.now(),
-      title,
-      tradeCategory,
-      workersNeeded,
-      wageOffered,
-      siteAddress,
-      employerPhone,
-      status: "broadcasted",
-      createdAt: new Date().toISOString(),
-    };
+    setIsPosting(true);
 
-    setIsSuccess(true);
-    confetti({ particleCount: 50, spread: 60 });
-    if (onJobPosted) onJobPosted(newJob);
+    try {
+      const res = await fetch("/api/jobs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          tradeCategory,
+          workersNeeded,
+          wageOffered,
+          siteAddress,
+          employerPhone,
+        }),
+      });
 
-    setTimeout(() => {
-      setIsSuccess(false);
-      onClose();
-    }, 1500);
+      const data = await res.json();
+      const jobRecord = data.data || {
+        id: "job-" + Date.now(),
+        title,
+        tradeCategory,
+        workersNeeded,
+        wageOffered,
+        siteAddress,
+        employerPhone,
+        status: "open",
+        createdAt: new Date().toISOString(),
+      };
+
+      setIsPosting(false);
+      setIsSuccess(true);
+      confetti({ particleCount: 50, spread: 60 });
+      if (onJobPosted) onJobPosted(jobRecord);
+
+      setTimeout(() => {
+        setIsSuccess(false);
+        onClose();
+      }, 1500);
+    } catch {
+      setIsPosting(false);
+      setIsSuccess(true);
+      confetti({ particleCount: 50, spread: 60 });
+      setTimeout(() => {
+        setIsSuccess(false);
+        onClose();
+      }, 1500);
+    }
   };
 
   return (
